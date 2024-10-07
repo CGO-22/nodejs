@@ -76,7 +76,7 @@
       - name: test
         run: |
             ls -la
-            cat DOCKERFILE
+            cat Dockerfile
       - name: Docker Build for testing
         uses: docker/build-push-action@v4
         with: 
