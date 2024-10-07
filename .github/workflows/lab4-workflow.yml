@@ -1,23 +1,23 @@
-  name: Deploy Application
+name: Deploy Application
   
-  on:
-    workflow_dispatch:
+on:
+  workflow_dispatch:
 
-  env:
-      MONGO_URI: ${{ vars.MONGO_URI }}
-      MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
-      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+env:
+  MONGO_URI: ${{ vars.MONGO_URI }}
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
   
-  jobs:
-    unit-testing:
-      runs-on: ubuntu-latest
-      steps:
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - uses: actions/setup-node@v4     
         with:
-            node-version: '20.x'
+          node-version: '20.x'
             
       - uses: actions/cache@v4
         with:
@@ -36,15 +36,15 @@
           name: Mocha-test-result
           path: test-results.xml
           
-    code-coverage:
-      runs-on: ubuntu-latest
-      steps:
+  code-coverage:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - uses: actions/setup-node@v4     
         with:
-            node-version: '20.x'
+          node-version: '20.x'
             
       - uses: actions/cache@v4
         with:
@@ -65,10 +65,10 @@
           path: coverage
           retention-days: 5
           
-    build:
-      needs: [unit-testing, code-coverage]
-      runs-on: ubuntu-latest
-      steps:
+  build:
+    needs: [unit-testing, code-coverage]
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         
@@ -78,10 +78,11 @@
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: test
+      - name: Test
         run: |
-            ls -la
-            cat Dockerfile
+          ls -la
+          cat Dockerfile
+
       - name: Docker Build for testing
         uses: docker/build-push-action@v4
         with: 
@@ -91,13 +92,12 @@
 
       - name: Docker Image testing
         run: |
-            docker images
-            docker run --name solar-system-app -d \
-              -p 3000:3000 \
-              -e MONGO_URI=$MONGO_URI
-              -e MONGO_USERNAME=$MONGO_USERNAME
-              -e MONGO_PASSWORD=$MONGO_PASSWORD
-              ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
-            sleep 10
-            wget -q -O - localhost:3000/live | grep live
-        
+          docker images
+          docker run --name solar-system-app -d \
+            -p 3000:3000 \
+            -e MONGO_URI=$MONGO_URI \
+            -e MONGO_USERNAME=$MONGO_USERNAME \
+            -e MONGO_PASSWORD=$MONGO_PASSWORD \
+            ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+          sleep 10
+          wget -q -O - localhost:3000/live | grep live
