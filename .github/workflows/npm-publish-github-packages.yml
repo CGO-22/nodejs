@@ -6,10 +6,6 @@ name: Node.js Package
 on:
   workflow_dispatch:
 
-name: Publish Package to npmjs
-on:
-  release:
-    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
