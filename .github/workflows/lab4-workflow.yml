@@ -93,6 +93,6 @@
               -e MONGO_USERNAME=$MONGO_USERNAME
               -e MONGO_PASSWORD=$MONGO_PASSWORD
               ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
-
-            wget -q -o - localhost:3000/live | grep live
+            sleep 10
+            wget -q -O - localhost:3000/live | grep live
         
