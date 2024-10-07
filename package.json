@@ -1,8 +1,7 @@
 {
-  "name": "@Charan-SV/lab4",
+  "name": "@CGO-22/nodejs",
   "version": "7.7.7",
-  "author": "Siddharth Barahalikar <barahalikar.siddharth@gmail.com>",
-  "homepage": "https://www.linkedin.com/in/barahalikar-siddharth/",
+  "author": "Charan S V <charanv@devtoos.in>",
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
