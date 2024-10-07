@@ -70,6 +70,10 @@
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: test
+        run: |
+            ls -la
+            cat DOCKERFILE
       - name: Docker Build for testing
         uses: docker/build-push-action@v4
         with: 
