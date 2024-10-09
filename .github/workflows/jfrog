@@ -1,0 +1,30 @@
+name: npm Build and Push to Artifactory
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Configure npm for Artifactory
+        run: |
+          echo "//20.123.51.156:8081/artifactory/api/npm/test-npm-local/:_authToken=${{ secrets.JFROG_ARTIFACTORY_TOKEN }}" > .npmrc
+          npm config set registry http://20.123.51.156:8081/artifactory/api/npm/test-npm-local
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the package
+        run: npm run build
+
+      - name: Publish to Artifactory
+        run: npm publish
