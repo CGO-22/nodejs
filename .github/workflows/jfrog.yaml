@@ -13,12 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # - name: Set up Node.js
-    #   uses: actions/setup-node@v3
-    #   with:
-    #     node-version: '18.x'
-    #     registry-url: ${{ secrets.JFROG_URL }}
-
     - name: Install dependencies
       run: npm install
 
@@ -27,3 +21,24 @@ jobs:
 
     - name: Build and test coverage
       run: npm run coverage
+
+    - name: Upload to JFrog
+      uses: jfrog/setup-jfrog-cli@v2
+      with:
+        jfrog-cli-version: latest
+        jfrog-cli-config: |
+          {
+            "artifactory": {
+              "url": "http://20.123.51.156:8082",
+              "user": "${{ secrets.JFROG_USER }}",
+              "password": "${{ secrets.JFROG_PASSWORD }}"
+            }
+          }
+
+    - name: Upload Coverage Reports
+      run: |
+        jfrog rt u "coverage/*" "General/test-npm-virual/coverage/" --recursive
+
+    - name: Upload Application Code (optional)
+      run: |
+        jfrog rt u "app.js" "General/test-npm-virual/app/" --recursive
