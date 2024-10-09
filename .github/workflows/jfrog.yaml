@@ -25,15 +25,12 @@ jobs:
     - name: Upload to JFrog
       uses: jfrog/setup-jfrog-cli@v2
       with:
-        jfrog-cli-version: latest
-        jfrog-cli-config: |
-          {
-            "artifactory": {
-              "url": "http://20.123.51.156:8082",
-              "user": "${{ secrets.JFROG_USER }}",
-              "password": "${{ secrets.JFROG_PASSWORD }}"
-            }
-          }
+        version: '2.24.2'  # You can specify the version here, or leave it out to use the latest
+        download-repository: 'artifactory'  # This is to set up the JFrog CLI for Artifactory
+
+    - name: Configure JFrog CLI
+      run: |
+        jfrog rt c --url="http://20.123.51.156:8082" --user="${{ secrets.JFROG_USER }}" --password="${{ secrets.JFROG_PASSWORD }}"
 
     - name: Upload Coverage Reports
       run: |
