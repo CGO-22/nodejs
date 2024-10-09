@@ -18,8 +18,7 @@ jobs:
       - name: Configure npm for Artifactory
         run: |
           echo "//20.123.51.156:8081/artifactory/api/npm/test-npm-local/:_authToken=${{ secrets.JFROG_ARTIFACTORY_TOKEN }}" > .npmrc
-          npm config set registry http://20.123.51.156:8081/artifactory/api/npm/test-npm-local
-
+          npm config set registry http://20.123.51.156:8081/artifactory/api/npm/test-npm-virtual
       - name: Install dependencies
         run: npm install
 
