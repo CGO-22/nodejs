@@ -22,20 +22,10 @@ jobs:
     - name: Build and test coverage
       run: npm run coverage
 
-    - name: Upload to JFrog
-      uses: jfrog/setup-jfrog-cli@v2
-      with:
-        version: '2.24.2'  # You can specify the version here, or leave it out to use the latest
-        download-repository: 'artifactory'  # This is to set up the JFrog CLI for Artifactory
-
-    - name: Configure JFrog CLI
+    - name: Publish to JFrog
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Use a secret for your NPM token
       run: |
-        jfrog rt c --url="http://20.123.51.156:8082" --user="${{ secrets.JFROG_USER }}" --password="${{ secrets.JFROG_PASSWORD }}"
-
-    - name: Upload Coverage Reports
-      run: |
-        jfrog rt u "coverage/*" "General/test-npm-virual/coverage/" --recursive
-
-    - name: Upload Application Code (optional)
-      run: |
-        jfrog rt u "app.js" "General/test-npm-virual/app/" --recursive
+        npm config set registry http://20.123.51.156:8081/artifactory/api/npm/test-npm-virual/
+        echo "//20.123.51.156:8081/artifactory/api/npm/test-npm-virual/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+        npm publish
