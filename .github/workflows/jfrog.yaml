@@ -26,6 +26,6 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Use a secret for your NPM token
       run: |
-        npm config set registry http://20.123.51.156:8081/artifactory/api/npm/test-npm-virual/
-        echo "//20.123.51.156:8081/artifactory/api/npm/test-npm-virual/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+        echo "registry=http://20.123.51.156:8082/artifactory/api/npm/test-demo-npm-local" >> ~/.npmrc
+        echo "//20.123.51.156:8082/artifactory/api/npm/test-demo-npm-local/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
         npm publish
