@@ -23,9 +23,9 @@ jobs:
       run: npm run coverage
 
     - name: Publish to JFrog
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Use a secret for your NPM token
       run: |
-        echo "registry=http://20.123.51.156:8082/artifactory/api/npm/test-demo-npm-local" >> ~/.npmrc
-        echo "//20.123.51.156:8082/artifactory/api/npm/test-demo-npm-local/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+        # Hard-coding username and password
+        echo "registry=http://20.123.51.156:8081/artifactory/api/npm/test-demo-npm-local" >> ~/.npmrc
+        echo "//20.123.51.156:8081/artifactory/api/npm/test-demo-npm-local/:username=admin" >> ~/.npmrc
+        echo "//20.123.51.156:8081/artifactory/api/npm/test-demo-npm-local/:_password=AP3Wynxi4VwC1hc9va8D3M73Cmi" >> ~/.npmrc
         npm publish
