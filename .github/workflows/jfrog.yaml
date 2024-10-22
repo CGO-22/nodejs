@@ -32,8 +32,8 @@ jobs:
 
     - name: Configure npm for JFrog
       run: |
-        echo "registry=http://20.123.51.156:8081/artifactory/api/npm/test-demo-npm-local/" >> ~/.npmrc
-        echo "//20.123.51.156:8081/artifactory/api/npm/test-demo-npm-local/:_auth=YWRtaW46QVAzV3lueXk0VndDY1hjOXZhOEQzTTczQ21j" >> ~/.npmrc  # Hardcoded credentials
+        echo "registry=http://4.242.40.69:8081/artifactory/api/npm/test-npm-local/" >> ~/.npmrc
+        echo "//4.242.40.69:8081/artifactory/api/npm/test-npm-local/:_auth=YWRtaW46QVA0U0Y3QUI0Q3ZvV0UyZXBUSEJZTjhodW9U" >> ~/.npmrc  # Hardcoded credentials
         echo "email=charanv@devtools.in" >> ~/.npmrc
         echo "always-auth=true" >> ~/.npmrc
 
