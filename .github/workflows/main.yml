@@ -74,10 +74,10 @@ jobs:
 
       - name: Set up .npmrc for JFrog Artifactory
         run: |
-          echo "_auth = YWRtaW46QVAzV3lueXk0VndDY1hjOXZhOEQzTTczQ21j" > ~/.npmrc
+          echo "_auth = YWRtaW46QVA0U0Y3QUI0Q3ZvV0UyZXBUSEJZTjhodW9U" > ~/.npmrc
           echo "email = charanv@devtools.in" >> ~/.npmrc
           echo "always-auth = true" >> ~/.npmrc
-          echo "registry = http://20.123.51.156:8081/artifactory/api/npm/test-npm-local/" >> ~/.npmrc
+          echo "registry = http://4.242.40.69:8081/artifactory/api/npm/test-npm-local/" >> ~/.npmrc
 
       - name: Install dependencies
         run: npm install
@@ -86,7 +86,7 @@ jobs:
         run: npm publish
 
       - name: Upload code coverage to Artifactory
-        run: npm publish coverage --registry=http://20.123.51.156:8081/artifactory/api/npm/test-npm-local/
+        run: npm publish coverage --registry=http://4.242.40.69:8081/artifactory/api/npm/test-npm-local/
 
       - name: Upload test results to Artifactory
-        run: npm publish test-results.xml --registry=http://20.123.51.156:8081/artifactory/api/npm/test-npm-local/
+        run: npm publish test-results.xml --registry=http://4.242.40.69:8081/artifactory/api/npm/test-npm-local/
